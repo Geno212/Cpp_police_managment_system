@@ -1,0 +1,245 @@
+// ConsoleApplication12.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+#include <iostream>
+using namespace std;
+#include <stdlib.h>
+
+#include <iomanip>
+
+#include <cstring> 
+
+#include <cmath>
+#include<iostream>
+#include<string.h>
+#include<Windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <iostream>
+
+struct Login
+{
+    string username;
+    string password;
+};
+struct TypeModl
+{
+    Login admin;
+    Login officer;
+};
+struct user
+{
+    int age;
+    int number;
+};
+struct crime {
+    int id;
+    string details;
+    string date;
+    string criminal_name;
+};
+
+crime crimes[100];
+
+int num_crims = 0;
+
+// fun to add crimes
+void addcrime(int select) {
+    if (select == 1) {
+        cout << "Enter crime id: ";
+        cin >> crimes[num_crims].id;
+        cout << endl << "Enter crime details: ";
+        cin >> crimes[num_crims].details;
+        cout << endl << "Enter crime date: ";
+        cin >> crimes[num_crims].date;
+        cout << endl << "Enter criminal name: ";
+        cin >> crimes[num_crims].criminal_name;
+        cout << endl << "Crime added: " << endl;
+        num_crims++;
+    }
+}
+// fun to display crimes
+void crimedisplay(int select) {
+    if (select == 2 && num_crims > 0) {
+        for (int x = 0;x < num_crims;x++) {
+            cout << "crime id:" << crimes[x].id << endl;
+            cout << "crime details:" << crimes[x].details << endl;
+            cout << "crime date :" << crimes[x].date << endl;
+            cout << "Criminal  :" << crimes[x].criminal_name << endl;
+        }
+    }
+}
+// fun to delete crimes
+void deletecrime(int l) {
+    if (l == 3 && num_crims > 0) {
+        ::num_crims--;
+        int id_delete;
+        cout << "Enter crime id to delete";
+        cin >> id_delete;
+        for (int y = 0;y <= num_crims;y++) {
+            if (crimes[y].id == id_delete) {
+                for (int k = y;k <= num_crims;k++) {
+                    crimes[k] = crimes[k + 1];
+                }
+            }
+        }
+
+    }
+
+}
+// fun to edit crime
+void editcrime(int select) {
+    int id_edit;
+    // thing to edit (k)
+    int k;
+    if (select == 4 && num_crims > 0) {
+        cout << "enter crime  id to edit:  ";
+        cin >> id_edit;
+
+        for (int i = 0;i <= num_crims;i++) {
+            if (crimes[i].id == id_edit) {
+                cout << "For date edit press : [1] " << endl << "For crime details update press: [2] " << endl << "Edit criminal name:[3] " << endl;
+                cin >> k;
+                cout << "crime of id" << crimes[i].id;
+                if (k == 1) {
+                    cout << endl << " edit date:";
+                    cin >> crimes[i].date;
+                }
+                else if (k == 2) {
+                    cout << endl << "edit crime details ";
+                    cin >> crimes[i].details;
+                }
+                else if (k == 3) {
+                    cout << endl << "edit criminal name ";
+                    cin >> crimes[i].criminal_name;
+
+                }
+                break;
+            }
+        }
+    }
+}
+// fun to search crime
+void searchcrime(int select) {
+    if (select == 5 && num_crims > 0) {
+        int id_search;
+        cout << "Enter the id you want to search: ";
+        cin >> id_search;
+        for (int i = 0; i < num_crims; i++) {
+            if (id_search == crimes[i].id) {
+                cout << "crime id:" << crimes[i].id << endl;
+                cout << "crime details:" << crimes[i].details << endl;
+                cout << "crime date :" << crimes[i].date << endl;
+                cout << "Criminal  :" << crimes[i].criminal_name << endl;
+            }
+
+        }
+    }
+}
+
+int main() {
+    int no_attemps = 3;
+    cout << "\n\n\n\n\n\n";
+    cout << "\t\t\t\t    ----------------------------------\n";
+    cout << "\t\t\t\t    |POLICE STATION MANAGEMENT SYSTEM|\n";
+    cout << "\t\t\t\t    ----------------------------------\n";
+    cout << "\n\n";
+    cout << "\t\t\t\t\t";
+    TypeModl p;
+    string data_username[] = { "mo","ah","abdo" };
+    string data_password[] = { "123","1234","12345" };
+    string user_username[] = { "boda","ahmed","mido" };
+    string user_passwrod[] = { "bbb","aaa","mmm" };
+    bool login = true;
+
+    int len = sizeof(data_username) / sizeof(data_username[0]);
+    bool runuser = true;
+    bool run = true;
+    while (login) {
+        cout << "\n";
+        cout << "\t\t\t\t\t";
+        cout << "username: ";
+        cin >> p.admin.username;
+        cout << "\n";
+        cout << "\t\t\t\t\t";
+        cout << "Password: ";
+        cin >> p.admin.password;
+        system("cls");
+        run = true;
+        runuser = true;
+        while (run) {
+            for (int i = 0; i < len; i++) {
+                if (p.admin.username == data_username[i] && p.admin.password == data_password[i])
+                {
+                    cout << "                            Welcome admin";
+                    int n;
+                    cout << "\n\n\n\n";
+                    cout << "\t\t\t\t";
+                    cout << " 1. ADD RECORD\n\n";
+                    cout << "\t\t\t\t";
+                    cout << " 2. DISPLAY RECORD\n\n";
+                    cout << "\t\t\t\t";
+                    cout << " 3. DELETE RECORD\n\n";
+                    cout << "\t\t\t\t";
+                    cout << " 4. MODIFY RECORD\n\n";
+                    cout << "\t\t\t\t";
+                    cout << " 5. SEARCH RECORD\n\n";
+                    cout << "\t\t\t\t";
+                    cout << " 6. Logout\n\n";
+                    cout << "\t\t\t\t";
+                    cout << " 7. Exit\n\n";
+                    cout << "\t\t\t\t";
+                    cout << "Choose Option:[1/2/3/4/5/6/7] : ";
+                    cin >> n;
+                    cout << "      Total crimes=" << num_crims << endl;
+                    crimedisplay(n);
+                    addcrime(n);
+                    deletecrime(n);
+                    editcrime(n);
+                    searchcrime(n);
+                    if (n == 6) {
+                        run = false;
+                    }if (n == 7) {
+                        run = false;
+                        login = false;
+
+                    }
+                    system("pause");  system("cls");
+                }
+                else if (p.admin.username == user_username[i] && p.admin.password == user_passwrod[i]) {
+                    cout << "\t\t\t\t";
+                    cout << "Welcome Officer\n\n";
+                    
+                    while (runuser) {
+                        cout << "\t\t\t\t";
+                        cout << " 0. Exit\n\n";
+                        cout << "\t\t\t\t";
+                        cout << " 1. Logout\n\n";
+                        cout << "\t\t\t\t";
+                        cout << " 2. Display crimes\n\n";
+                        cout << "\t\t\t\t";
+                        int n;
+                        cin >> n;
+                        crimedisplay(n);
+                        if (n == 1) {
+                            runuser = false;
+                            run = false;
+                        }
+                        if (n == 0) {
+                            run = false;
+                            login = false;
+                            runuser = false;
+
+                        }
+                        system("pause");  system("cls");
+
+                    }
+
+                }
+               
+                
+            }
+        }
+    }
+
+}
